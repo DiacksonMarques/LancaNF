@@ -1,0 +1,39 @@
+<section *ngIf="checkPageLoad; else pageLoaded" class="d-flex justify-content-center mt-5">
+  <div class="d-flex flex-column justify-content-center align-items-center">
+    <mat-progress-spinner mode="indeterminate" color="primary" [strokeWidth]="10"></mat-progress-spinner>
+    <h1>Carregando dados do Historico de lancaçamento...</h1>
+  </div>
+</section>
+
+<ng-template #pageLoaded>
+  <mat-card class="listind-data p-4">
+    <header class="d-flex justify-content-between align-items-center align-self-center w-100">
+      <div class="">
+        <h2 class="mb-1 d-flex align-self-center">
+          <mat-icon class="me-1">work_history</mat-icon>
+          Historico de lancaçamento
+        </h2>
+      </div>
+
+      <mat-form-field class="col-2" appearance="outline">
+        <mat-label>Ano dos gráficos</mat-label>
+        <mat-select [(ngModel)]="yearCurrent" (ngModelChange)="loadHistoricRelease($event)">
+          <mat-option [value]="2023">2023</mat-option>
+          <mat-option [value]="2022">2022</mat-option>
+          <mat-option [value]="2021">2021</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </header>
+
+    <mat-divider></mat-divider>
+
+    <section>
+      <app-table-paginated
+        [tableColumns]="displayedColumns"
+        [dataTable]="dataSource"
+        [actionsColumnCheck]="false"
+      ></app-table-paginated>
+    </section>
+
+  </mat-card>
+</ng-template>

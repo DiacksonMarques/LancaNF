@@ -1,0 +1,111 @@
+<section class="mat-elevation-z8 table-container">
+  <mat-table [dataSource]="dataSource" matSort>
+    <!-- Columns -->
+    <ng-container *ngFor="let column of displayedColumns; index as indexCloumn">
+      <ng-container *ngIf="column.tableColumn != 'actions'; else actionsColumn"  [matColumnDef]="column.tableColumn">
+        <mat-header-cell  class="style-table-header" [style.max-width.%]="column.size != null ? column.size : 100"  *matHeaderCellDef mat-sort-header>
+          {{column.columnName}}
+        </mat-header-cell>
+        <mat-cell [style.max-width.%]="column.size != null ? column.size : 100" *matCellDef="let row">
+          <ng-container *ngIf="column.mask === 'phone'">
+            <span class="column-cell" [matTooltip]="row[column.tableColumn] | phoneFormat">{{ row[column.tableColumn] | phoneFormat }}</span>
+          </ng-container>
+          <ng-container *ngIf="column.mask === 'identifier'">
+            <span class="column-cell" [matTooltip]="row[column.tableColumn] | cpfcnpj">{{ row[column.tableColumn] | cpfcnpj }}</span>
+          </ng-container>
+          <ng-container *ngIf="column.mask === 'date'">
+            <span class="column-cell" matTooltip="{{row[column.tableColumn] | date}}">{{ row[column.tableColumn] | date }}</span>
+          </ng-container>
+          <ng-container *ngIf="column.mask === 'money'">
+            <span class="column-cell" matTooltip="{{row[column.tableColumn] | currency}}">{{ row[column.tableColumn] | currency }}</span>
+          </ng-container>
+          <ng-container *ngIf="column.mask === 'days'">
+            <span class="column-cell" matTooltip="{{ row[column.tableColumn] }} dias">{{ row[column.tableColumn] }} dias</span>
+          </ng-container>
+          <ng-container *ngIf="column.mask === 'boolean'">
+            <span class="column-cell" matTooltip="{{row[column.tableColumn] ? 'Sim' : 'Não'}}">
+              <ng-container *ngIf="row[column.tableColumn]">
+                <mat-icon color="primary"> check </mat-icon>
+              </ng-container>
+
+              <ng-container *ngIf="!row[column.tableColumn]">
+                <mat-icon color="accent"> clear </mat-icon>
+              </ng-container>
+            </span>
+          </ng-container>
+          <ng-container *ngIf="!column.mask && column.complement != null">
+            <span class="column-cell" matTooltip="{{row[column.tableColumn] | consultObject: column.complement}}">
+              {{row[column.tableColumn] | consultObject: column.complement}}
+            </span>
+          </ng-container>
+          <ng-container *ngIf="!column.mask && column.complement == null">
+            <span class="column-cell" matTooltip="{{row[column.tableColumn]}}">{{row[column.tableColumn]}}</span>
+          </ng-container>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Columns Actions -->
+      <ng-template #actionsColumn>
+        <ng-container matColumnDef="actions">
+          <mat-header-cell  class="style-table-header" [style.max-width.%]="actionsColumnData.length > 1 ? actionsColumnData.length * 5 : actionsColumnData.length * 7"  *matHeaderCellDef> Ações </mat-header-cell>
+          <mat-cell *matCellDef="let valueRow" class="me-3" [style.max-width.%]="actionsColumnData.length > 1 ? actionsColumnData.length * 5 : actionsColumnData.length * 7">
+            <ng-container *ngFor="let action of actionsColumnData">
+              <ng-container *ngIf="validationIcons(action); else elseAction">
+                <ng-container *ngIf="valueRow[actionsTableValidation.tableColumn]">
+                  <ng-template
+                    [ngTemplateOutlet]="buttonsIcons"
+                    [ngTemplateOutletContext]="{
+                      action,
+                      valueRow
+                    }"
+                  ></ng-template>
+                </ng-container>
+              </ng-container>
+              <ng-template #elseAction>
+                <ng-template
+                    [ngTemplateOutlet]="buttonsIcons"
+                    [ngTemplateOutletContext]="{
+                      action,
+                      valueRow
+                    }"
+                  ></ng-template>
+              </ng-template>
+            </ng-container>
+          </mat-cell>
+        </ng-container>
+      </ng-template>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="columnsHeader"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columnsHeader;"></mat-row>
+
+    <!-- Row shown when there is no matching data. -->
+    <div class="d-flex justify-content-center mt-2" *matNoDataRow>
+      {{dataSource.data.length > 0 ? 'Nenhum dado correspondente ao filtro: {{filterValue}}' :  'Sem dados para exibir'}}
+    </div>
+  </mat-table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
+</section>
+
+<ng-template #buttonsIcons let-action="action" let-valueRow="valueRow">
+  <div *ngIf="action === 'update'">
+    <button mat-icon-button (click)="updateLine.emit(valueRow)">
+      <mat-icon color="primary">edit</mat-icon>
+    </button>
+  </div>
+  <div *ngIf="action === 'delete'">
+    <button mat-icon-button (click)="deleteLine.emit(valueRow)">
+      <mat-icon color="warn">delete</mat-icon>
+    </button>
+  </div>
+  <div *ngIf="action === 'view'">
+    <button mat-icon-button (click)="viewLine.emit(valueRow)">
+      <mat-icon color="primary">visibility</mat-icon>
+    </button>
+  </div>
+  <div *ngIf="action === 'print'">
+    <button mat-icon-button (click)="printLine.emit(valueRow)">
+      <mat-icon color="primary">print</mat-icon>
+    </button>
+  </div>
+</ng-template>

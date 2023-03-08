@@ -1,0 +1,52 @@
+<section *ngIf="checkPageLoad; else pageLoaded" class="d-flex justify-content-center mt-5">
+  <div class="d-flex flex-column justify-content-center align-items-center">
+    <mat-progress-spinner mode="indeterminate" color="primary" [strokeWidth]="10"></mat-progress-spinner>
+    <h1>Carregando dados da listagem {{ titlePage }}...</h1>
+  </div>
+</section>
+
+<ng-template #pageLoaded>
+  <mat-card class="listind-data p-4">
+    <header class="d-flex justify-content-between align-items-center align-self-center w-100">
+      <div class="">
+        <h2 class="mb-1 d-flex align-self-center">
+          <mat-icon class="me-1">{{iconTitlePage}}</mat-icon>
+          {{titlePage}}
+        </h2>
+        <p class="mt-0">{{descriptionPage}}</p>
+      </div>
+
+      <button class="me-2" color="primary" mat-mini-fab (click)="saveSelect.emit(true)" [matTooltip]="descriptionButton">
+        <mat-icon>add</mat-icon>
+      </button>
+    </header>
+
+    <mat-divider></mat-divider>
+
+    <!-- <section class="row justify-content-between align-items-end mt-3">
+      <div class="col-lg-4">
+        <h3>{{titleListing}}</h3>
+      </div>
+    </section> -->
+
+    <section>
+      <app-table-paginated
+        [tableColumns]="tableColumns"
+        [dataTable]="dataTable"
+        [actionsColumnCheck]="true"
+        [actionsColumn]="actionsTable"
+        [actionsTableValidation]="actionsTableValidation"
+        (delete)="deleteSelect.emit($event)"
+        (update)="updateSelect.emit($event)"
+        (view)="viewSelect.emit($event)"
+        (print)="printSelect.emit($event)"
+      ></app-table-paginated>
+    </section>
+
+    <section class="mt-3 d-flex justify-content-end">
+      <button mat-raised-button color="primary" type="submit" (click)="saveSelect.emit(true)" class="py-2">
+        <mat-icon  class="me-1">add</mat-icon> {{descriptionButton}}
+       </button>
+    </section>
+  </mat-card>
+</ng-template>

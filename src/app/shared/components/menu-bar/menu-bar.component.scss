@@ -1,0 +1,42 @@
+.settings{
+  min-height: 100vh;
+  height: 100%;
+  background-color: #f8f7fa;
+
+  .mat-expansion-panel {
+    background-color: #f8f7fa;
+  }
+  .mat-expansion-panel:not([class*='mat-elevation-z']) {
+    box-shadow: none;
+  }
+
+  .mat-expansion-panel-header{
+    font-size: 15px;
+    font-weight: 400;
+  }
+
+  ::ng-deep .mat-expansion-panel-body{
+    padding: 0 0 24px 16px;
+  }
+
+  .menuH:hover{
+    color: var(--segond-bg-color);
+    background-color: rgba(0,0,0,.04);
+  }
+
+  .menuSingle{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 13px 24px;
+    border-radius: inherit;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 400;
+  }
+  .menuSingle:hover{
+    color: var(--segond-bg-color);
+    background-color: rgba(0,0,0,.04);
+  }
+
+}

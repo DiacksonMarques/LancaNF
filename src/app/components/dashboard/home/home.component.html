@@ -1,0 +1,95 @@
+<main class="p-3">
+  <section class="row justify-content-between">
+    <div class="col-7">
+      <button mat-raised-button (click)="openDialogInvoice()" class="col-5 p-2 me-2" color="primary">
+        <mat-icon>post_add</mat-icon>
+        Lançar Nota Fiscal
+      </button>
+      <button mat-raised-button (click)="openDialogExpense()" class="col-5 p-2" color="primary">
+        <mat-icon>shopping_cart_checkout</mat-icon>
+        Lançar Despesas
+      </button>
+    </div>
+
+    <mat-form-field class="col-2" appearance="outline">
+      <mat-label>Ano dos gráficos</mat-label>
+      <mat-select [(ngModel)]="yearCurrent" (ngModelChange)="loadChart()">
+        <mat-option [value]="2023">2023</mat-option>
+        <mat-option [value]="2022">2022</mat-option>
+        <mat-option [value]="2021">2021</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </section>
+
+  <section class="row justify-content-center mt-4">
+    <mat-card class="col-4 p-3">
+      <section>
+        <mat-card-title>Disponível para faturamento </mat-card-title>
+        <mat-card-subtitle>Gráfico indicativo de quanto ainda há disponível de faturamento</mat-card-subtitle>
+      </section>
+
+      <canvas baseChart
+        [data]="doughnutChartData"
+        [type]="'doughnut'"
+      >
+      </canvas>
+    </mat-card>
+
+    <mat-card class="col-7 mx-4 p-3">
+      <section>
+        <mat-card-title>Nota Fiscal</mat-card-title>
+        <mat-card-subtitle>Gráficos com o valor de NF gerado, mês a mês</mat-card-subtitle>
+      </section>
+
+      <canvas baseChart
+        [data]="barChartDataInvoice"
+        [type]="'bar'"
+      >
+      </canvas>
+    </mat-card>
+  </section>
+
+  <section class="row justify-content-center mt-4">
+    <mat-card class="col-6 p-3">
+      <section>
+        <mat-card-title>Despesas</mat-card-title>
+        <mat-card-subtitle>Gráficos com o valor de despesas mês a mês</mat-card-subtitle>
+      </section>
+
+      <canvas baseChart
+        [data]="barChartDataExpense"
+        [type]="'bar'"
+      >
+      </canvas>
+    </mat-card>
+
+    <mat-card class="col-5 mx-4 p-3">
+      <section>
+        <mat-card-title>Despesas por categorias</mat-card-title>
+        <mat-card-subtitle>Gráficos com as despesas por categorias</mat-card-subtitle>
+      </section>
+
+      <canvas baseChart
+        [data]="barChartDataExpenseCategori"
+        [type]="'bar'"
+      >
+      </canvas>
+    </mat-card>
+  </section>
+
+  <section class="row justify-content-center mt-4">
+    <mat-card class="col-8 p-3">
+      <section>
+        <mat-card-title>Balanço simples</mat-card-title>
+        <mat-card-subtitle>gráficos com balanço simples, mostrando receitas - despesas mês a mês</mat-card-subtitle>
+      </section>
+
+      <canvas baseChart
+        [data]="barChartDataSimpleSwing"
+        [type]="'bar'"
+      >
+      </canvas>
+    </mat-card>
+  </section>
+</main>
+

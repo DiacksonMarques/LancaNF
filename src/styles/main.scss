@@ -1,0 +1,43 @@
+/* You can add global styles to this file, and also import other style files */
+
+//Angular Material new theming
+@use '@angular/material' as material;
+@import "./theming-color-angular.scss";
+
+$lancaNf-app-primary: material.define-palette($lancaNf-primary);
+$lancaNf-app-accent: material.define-palette($lancaNf-accent);
+$lancaNf-app-warn: material.define-palette($lancaNf-warn);
+
+$lancaNf-theme: material.define-light-theme((
+  color: (
+   primary: $lancaNf-app-primary,
+   accent: $lancaNf-app-accent,
+   warn: $lancaNf-app-warn
+ ),
+ typography: material.define-typography-config(),
+ density: 0,
+));
+
+@include material.all-component-themes($lancaNf-theme);
+
+//Include size form-filde
+/* ::ng-deep .mat-mdc-form-field{
+  height: 50px;
+} */
+
+// Styles personalis
+html, body { height: 100vh; background-color: #e7e5f7; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.h-100{
+  height: 100vh;
+}
+
+.curso-p{
+  cursor: pointer;
+}
+
+:root {
+  --main-bg-color: #1B0088;
+  --segond-bg-color: #e8114b;
+}

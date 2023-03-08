@@ -1,0 +1,52 @@
+[
+  {
+    "name": "Início",
+    "icon": "home",
+    "idMenu": "home",
+    "route": "/dashboard"
+  },
+  {
+    "name": "Nota Fiscal",
+    "icon": "description",
+    "idMenu": "invoice",
+    "route": "/dashboard/invoices"
+  },
+  {
+    "name": "Despesa",
+    "icon": "shopping_cart",
+    "idMenu": "expenses",
+    "route": "/dashboard/expenses"
+  },
+  {
+    "name": "Histórico Lançamentos",
+    "icon": "work_history",
+    "idMenu": "launch_history",
+    "route": "/dashboard/invoice/historical-release"
+  },
+  {
+    "name": "Preferências",
+    "icon": "room_preferences",
+    "idMenu": "Preferences",
+    "route": "",
+    "subMenus": [
+      {
+        "name": "Empresas Parceiras",
+        "icon": "people",
+        "idMenu": "partner_companies",
+        "route": "/dashboard/companys"
+      },
+      {
+        "name": "Categorias das Despesas",
+        "icon": "production_quantity_limits",
+        "idMenu": "expense_categories",
+        "route": "/dashboard/expense-categories"
+      },
+      {
+        "name": "Limite Faturamento",
+        "icon": "tune",
+        "idMenu": "control_system",
+        "route": "/dashboard/billing-limit"
+      }
+    ]
+  }
+]

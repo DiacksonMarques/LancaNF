@@ -1,0 +1,25 @@
+
+<section class="container-fluid navbar">
+  <section class="row w-100">
+    <div class="col-6">
+      <h1 class="ms-2" style="color:aliceblue">Lança NF</h1>
+    </div>
+    <div *ngIf="userLoged" class="col-6">
+      <div class="d-flex justify-content-end">
+        <util-profile-picture class="curso-p" matRipple [matMenuTriggerFor]="menu"></util-profile-picture>
+      </div>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>account_box</mat-icon>
+          <span>Perfil</span>
+        </button>
+
+        <mat-divider></mat-divider>
+        <button (click)="emitLogout()" mat-menu-item>
+          <mat-icon>logout</mat-icon>
+          <span>Sair</span>
+        </button>
+      </mat-menu>
+    </div>
+  </section>
+</section>

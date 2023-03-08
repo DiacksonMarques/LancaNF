@@ -1,0 +1,105 @@
+<mat-card class="p-3">
+  <header class="d-flex justify-content-between align-items-center align-self-center w-100 mb-3">
+    <div class="">
+      <h2 class="mb-1 d-flex align-self-center">
+        <mat-icon class="me-1"> description </mat-icon>
+        <ng-container [ngSwitch]="type">
+          <ng-container *ngSwitchCase="'save'">Cadastrar</ng-container>
+          <ng-container *ngSwitchCase="'dialog'">Cadastrar</ng-container>
+          <ng-container *ngSwitchCase="'edit'">Alterar</ng-container>
+          <ng-container *ngSwitchCase="'view'">Vizualizar</ng-container>
+        </ng-container>
+        Nota Fiscal
+      </h2>
+    </div>
+
+    <button (click)="returnList()" *ngIf="type != 'dialog'" mat-button color="primary">
+      <mat-icon>arrow_back</mat-icon>Voltar
+    </button>
+    <button mat-icon-button (click)="returnList()" *ngIf="type == 'dialog'">
+      <mat-icon>close</mat-icon>
+    </button>
+  </header>
+
+  <form [formGroup]="formInvoice" (ngSubmit)="submitForm()" class="row justify-content-end">
+    <div class="col-6">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Empresa</mat-label>
+        <input matInput formControlName="company" [matAutocomplete]="autoCompany" [readonly]="type == 'view'">
+        <mat-autocomplete autoActiveFirstOption [displayWith]="displayWithCompany" #autoCompany="matAutocomplete">
+          <mat-option *ngFor="let option of filteredCompanys | async" [value]="option">
+            {{ option.companyName }}
+          </mat-option>
+        </mat-autocomplete>
+
+        <mat-error>Campo Obrigatório</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-6">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Número Nota Fiscal</mat-label>
+        <input matInput formControlName="numberInvoice" type="number" [readonly]="type == 'view'">
+        <mat-error>Campo Obrigatório</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-4">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Valor Nota Fiscal</mat-label>
+        <input matInput formControlName="valueInvoice" currencyMask [readonly]="type == 'view'">
+        <mat-error>Campo Obrigatório</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-4">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Mês de competência</mat-label>
+        <mat-select formControlName="monthInvoice" [disabled]="type == 'view'">
+          <ng-container *ngFor="let month of months">
+            <mat-option [value]="month.value">{{ month.label }}</mat-option>
+          </ng-container>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-4">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Data de recebimento</mat-label>
+        <input matInput formControlName="receiptDate" [matDatepicker]="pickerAccrualDate" [readonly]="type == 'view'">
+        <mat-datepicker-toggle matIconSuffix [for]="pickerAccrualDate"></mat-datepicker-toggle>
+        <mat-datepicker #pickerAccrualDate></mat-datepicker>
+
+        <mat-error>Campo Obrigatório</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-12">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Descrição do serviço prestado</mat-label>
+        <textarea matInput formControlName="descriptioninvoice"  [readonly]="type == 'view'"></textarea>
+        <mat-error>Campo Obrigatório</mat-error>
+      </mat-form-field>
+    </div>
+
+
+
+    <div class="col-2" *ngIf="type != 'view'">
+      <util-button-loading
+        id="buttonSave"
+        [loading]="loading"
+        [type]="'submit'"
+        [color]="'primary'"
+        [description]="'Salvar'"
+        [icon]="'save'"
+        [class]="'p-3 w-100'">
+      </util-button-loading>
+    </div>
+    <div class="col-2" *ngIf="type == 'dialog'">
+      <button (click)="returnList()" class="p-3 w-100" mat-button color="primary">
+        <mat-icon>arrow_back</mat-icon>Fechar
+      </button>
+    </div>
+
+  </form>
+</mat-card>

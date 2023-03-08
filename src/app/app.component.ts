@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { UserService } from './core/services/user.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,5 +8,19 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'lanca';
+
+  constructor(
+    private userService: UserService,
+    private router: Router
+  ){ }
+
+  //Check user is loged
+  userLoged(): boolean{
+    return this.userService.userIsLoged();
+  }
+
+  logout(): void{
+    this.userService.logout();
+    this.router.navigateByUrl('/login');
+  }
 }

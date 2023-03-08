@@ -1,0 +1,58 @@
+<mat-card class="p-3">
+  <header class="d-flex justify-content-between align-items-center align-self-center w-100 mb-3">
+    <div class="">
+      <h2 class="mb-1 d-flex align-self-center">
+        <mat-icon class="me-1"> group_add </mat-icon>
+        <ng-container [ngSwitch]="type">
+          <ng-container *ngSwitchCase="'save'">Cadastrar</ng-container>
+          <ng-container *ngSwitchCase="'edit'">Alterar</ng-container>
+          <ng-container *ngSwitchCase="'view'">Vizualizar</ng-container>
+        </ng-container>
+        Empresa
+      </h2>
+    </div>
+
+    <button (click)="returnList()" mat-button color="primary">
+      <mat-icon>arrow_back</mat-icon>Voltar
+    </button>
+  </header>
+
+  <form [formGroup]="formCompany" (ngSubmit)="submitForm()" class="row justify-content-end">
+    <div class="col-4">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Nome</mat-label>
+        <input matInput formControlName="companyName" [readonly]="type == 'view'">
+        <mat-error>Campo Obrigatório</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-4">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Razão Social</mat-label>
+        <input matInput formControlName="corporateName"  [readonly]="type == 'view'">
+        <mat-error>Campo Obrigatório</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-4">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>CNPJ</mat-label>
+        <input matInput formControlName="cnpj" mask="00.000.000/0000-00"  [readonly]="type == 'view'">
+        <mat-error *ngIf="formCompany.controls['cnpj'].errors?.['required']">Campo Obrigatório</mat-error>
+        <mat-error *ngIf="formCompany.controls['cnpj'].errors?.['mask']">Campo inválido</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-2" *ngIf="type != 'view'">
+      <util-button-loading
+        id="buttonSave"
+        [loading]="loading"
+        [type]="'submit'"
+        [color]="'primary'"
+        [description]="'Salvar'"
+        [icon]="'save'"
+        [class]="'p-3 w-100'">
+      </util-button-loading>
+    </div>
+  </form>
+</mat-card>

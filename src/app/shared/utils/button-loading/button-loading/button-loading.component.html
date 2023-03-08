@@ -1,0 +1,10 @@
+<div class="d-flex justify-content-center align-items-center">
+  <div class="position-absolute" *ngIf="loading">
+    <mat-spinner diameter="24"></mat-spinner>
+  </div>
+  <button [type]="type" class="{{class}}" [color]="color" mat-raised-button [disabled]="loading || disabled">
+    <mat-icon *ngIf="icon">{{ icon }}</mat-icon>
+    {{ description }}
+    <mat-icon *ngIf="iconNext">{{ iconNext }}</mat-icon>
+  </button>
+</div>

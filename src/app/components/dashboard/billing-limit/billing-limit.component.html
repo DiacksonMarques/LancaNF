@@ -1,0 +1,36 @@
+<mat-card class="p-3">
+  <header class="d-flex justify-content-between align-items-center align-self-center w-100 mb-3">
+    <div class="">
+      <h2 class="mb-1 d-flex align-self-center">
+        <mat-icon class="me-1"> tune </mat-icon>
+        Alterar Limite Faturamento
+      </h2>
+    </div>
+  </header>
+
+  <form [formGroup]="formBillingLimit" (ngSubmit)="submitForm()" class="row justify-content-end">
+    <div class="col-6">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Nome</mat-label>
+        <input matInput currencyMask formControlName="limit">
+        <mat-error>Campo Obrigatório</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-6">
+      <mat-checkbox formControlName="alert">Receber Alertas</mat-checkbox>
+    </div>
+
+    <div class="col-2">
+      <util-button-loading
+        id="buttonSave"
+        [loading]="loading"
+        [type]="'submit'"
+        [color]="'primary'"
+        [description]="'Salvar'"
+        [icon]="'save'"
+        [class]="'p-3 w-100'">
+      </util-button-loading>
+    </div>
+  </form>
+</mat-card>

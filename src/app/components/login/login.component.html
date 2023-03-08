@@ -1,0 +1,29 @@
+<section class="container-section d-flex justify-content-center align-items-center">
+  <div class="section-login p-4 row justify-content-center">
+    <h1 class="text-center"> LançaNF </h1>
+
+    <form [formGroup]="formLogin" (ngSubmit)="submitLogin()">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Usuário</mat-label>
+        <input matInput formControlName="userName">
+        <mat-error>Campo Obrigatório</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Senha</mat-label>
+        <input matInput type="password" formControlName="password">
+        <mat-error>Campo Obrigatório</mat-error>
+      </mat-form-field>
+
+      <util-button-loading
+        id="buttonSave"
+        [loading]="loading"
+        [type]="'submit'"
+        [color]="'primary'"
+        [description]="'Entrar'"
+        [icon]="'login'"
+        [class]="'py-1 w-100'">
+      </util-button-loading>
+    </form>
+  </div>
+</section>

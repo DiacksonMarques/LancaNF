@@ -1,0 +1,12 @@
+.style-table-header{
+  background-color: #F0F0F0;
+}
+.id {
+  width: 90px;
+}
+.column-cell{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
